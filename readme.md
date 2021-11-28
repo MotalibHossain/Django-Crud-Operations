@@ -1,6 +1,5 @@
 <center>
 <h1>Django Crud Operations</h1>
-<hr>
 </center>
 
 # How to run the project:
