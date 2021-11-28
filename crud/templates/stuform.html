@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{%block block_body%}
+	<div class="container">
+		<h1 class="bg-success text-center p-2">This is Student Form</h1>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2 well">
+				<div class="col-sm-12 form-legend">
+					<h2 >Give Your Information</h2>
+				</div>
+				<div class="col-sm-12 form-column">
+					<form action="/send" method="post">
+                        {% csrf_token %}
+						<div class="form-group">
+							<label for="fname">Your First name</label>
+							<input type="text"  name="fname" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="email-confirm">Your Last name</label>
+							<input type="text"name="lname" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="country">Email</label>
+							<input type="text"  name="email" class="form-control" placeholder="" required>
+						</div>
+						<div class="form-group">
+							<label for="phone">Phone</label>
+							<input type="number" name="phone" class="form-control" placeholder="Optional" required>
+						</div>
+						<!-- <div class="form-group">
+							<label for="password">Password</label>
+							<input type="password" id="password" name="password" class="form-control" placeholder="Minimum 5 characters">
+						</div>
+						<div class="form-group">
+							<label for="password-confirm">Confirm Password</label>
+							<input type="password" id="password-confirm" name="passwordConfirm" class="form-control">
+						</div> -->
+						<!-- <div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input id="termsOfUse" type="checkbox" name="termsOfUse"> Yes, I agree to terms of use.
+							    </label>
+							</div>
+						</div> -->
+						<input type="submit" class="btn btn-primary">
+                        {{ msg }}
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>	
+{%endblock%}
