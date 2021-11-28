@@ -1,6 +1,4 @@
-<center>
-<h1>Django Crud Operations</h1>
-</center>
+# <h1 align="center">Django Crud Operations </h1>
 
 # How to run the project:
 1. Clone/Download the project.
