@@ -1,53 +1,104 @@
 {% extends 'base.html' %}
 {%block block_body%}
-	<div class="container">
-		<h1 class="bg-success text-center p-2">This is Student Form</h1>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-8 col-sm-offset-2 well">
-				<div class="col-sm-12 form-legend">
-					<h2 >Give Your Information</h2>
-				</div>
-				<div class="col-sm-12 form-column">
-					<form action="/send" method="post">
-                        {% csrf_token %}
-						<div class="form-group">
-							<label for="fname">Your First name</label>
-							<input type="text"  name="fname" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label for="email-confirm">Your Last name</label>
-							<input type="text"name="lname" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label for="country">Email</label>
-							<input type="text"  name="email" class="form-control" placeholder="" required>
-						</div>
-						<div class="form-group">
-							<label for="phone">Phone</label>
-							<input type="number" name="phone" class="form-control" placeholder="Optional" required>
-						</div>
-						<!-- <div class="form-group">
-							<label for="password">Password</label>
-							<input type="password" id="password" name="password" class="form-control" placeholder="Minimum 5 characters">
-						</div>
-						<div class="form-group">
-							<label for="password-confirm">Confirm Password</label>
-							<input type="password" id="password-confirm" name="passwordConfirm" class="form-control">
-						</div> -->
-						<!-- <div class="form-group">
-							<div class="checkbox">
-								<label>
-									<input id="termsOfUse" type="checkbox" name="termsOfUse"> Yes, I agree to terms of use.
-							    </label>
-							</div>
-						</div> -->
-						<input type="submit" class="btn btn-primary">
-                        {{ msg }}
-					</form>
-				</div>
+<div class="container">
+	<!-- <h1 class="bg-success text-center p-2">This is Student Form</h1> -->
+</div>
+<div class="container">
+	<div class="row mt-3">
+		<div class="col-lg-4 col-md-4 col-sm-4 col-sm-4 offset-2 well">
+			<div class="col-sm-12 form-legend">
+				<h2>Give Your Information</h2>
+			</div>
+			<div class="col-sm-12 form-column">
+				<form method="post" id="studentForm">
+					{% csrf_token %}
+					<div class="form-group mb-0">
+						<label for="fname">Your First name</label>
+						<input type="text" id="fname" name="fname" class="form-control" required>
+					</div>
+					<div class="form-group mb-0">
+						<label for="email-confirm">Your Last name</label>
+						<input type="text" id="lname" name="lname" class="form-control" required>
+					</div>
+					<div class="form-group mb-0">
+						<label for="country">Email</label>
+						<input type="text" id="email" name="email" class="form-control" placeholder="" required>
+					</div>
+					<div class="form-group mb-0">
+						<label for="phone">Phone</label>
+						<input type="number" id="phone" name="phone" class="form-control" placeholder="Optional"
+							required>
+					</div>
+					<input id="submit" type="submit" class="btn btn-primary mt-2">
+				</form>
+				<span id="message"></span>
 			</div>
 		</div>
-	</div>	
+		<div class="col-lg-8 col-md-8 col-sm-8">
+			<h1 class="bg-success text-center">All Student Info</h1>
+			<table class="table table-dark">
+				<thead>
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Fname</th>
+						<th scope="col">Lname</th>
+						<th scope="col">email</th>
+						<th scope="col">phone</th>
+						<th scope="col">button</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for d in profile %}
+					<tr>
+						<th scope="row">{{ d.id }}</th>
+						<td>{{ d.fname }}</td>
+						<td>{{ d.lname }}</td>
+						<td>{{ d.email }}</td>
+						<td>{{ d.phone }}</td>
+						<td>
+							<a class="btn btn-success" href="/profile?id={{d.id}}">Show</a>
+							<a class="btn btn-danger" href="/edit?id={{d.id}}">edit</a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+
+			</table>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	$(document).ready(function () {
+		$("#submit").click(function (e) {
+			e.preventDefault()
+			console.log("click me")
+			let fname = $("#fname").val();
+			let lname = $("#lname").val();
+			let email = $("#email").val();
+			let phone = $("#phone").val();
+			const csrftoken = $("input[name=csrfmiddlewaretoken]").val();
+			console.log(csrftoken)
+			formData = { fname: fname, lname: lname, email: email, phone: phone, csrfmiddlewaretoken: csrftoken }
+			$.ajax({
+				url: "{% url 'send' %}",
+				type: "POST",
+				data: formData,
+				dataType: "json",
+				success: (title) => {
+					$("#studentForm")[0].reset();
+					console.log(title);
+					let title1=title
+					$("#message").append(title1);
+				},
+				error: (title) => {
+					console.log(title);
+					$("#message").append(title);
+				}
+			});
+
+		})
+	});
+</script>
 {%endblock%}

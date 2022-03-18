@@ -1,5 +1,6 @@
+from multiprocessing import context
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from crud.models import student3
 
 
@@ -8,7 +9,9 @@ def index(request):
 
 
 def form(request):
-    return render(request, 'stuform.html')
+    show = student3.objects.all()
+    context={"profile":show}
+    return render(request, 'stuform.html',context)
 
 
 def send(request):
@@ -19,9 +22,10 @@ def send(request):
         phone = request.POST.get('phone')
         student3(fname=fname, lname=lname, email=email, phone=phone).save()
         title = {'title': 'Send', 'msg': 'Success'}
-        return render(request, 'stuform.html', title)
+        # return render(request, 'stuform.html', title)
+        return JsonResponse({"title":"data is submitted"})
     else:
-        return HttpResponse('Error-404')
+        return JsonResponse({"title":"Something is wrong"})
 
 
 def show(request):
