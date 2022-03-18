@@ -6,5 +6,7 @@ class student3(models.Model):
     lname=models.CharField(max_length=50)
     email=models.EmailField()
     phone=models.IntegerField()
+    
+    
     def __str__(self):
         return str(self.pk)+" "+self.fname+" "+self.lname
