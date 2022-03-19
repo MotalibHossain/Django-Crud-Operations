@@ -8,30 +8,31 @@
 		<div class="col-lg-4 col-md-4 col-sm-4 col-sm-4 offset-2 well">
 			<div class="col-sm-12 form-legend">
 				<h2>Give Your Information</h2>
+				<hr>
+				<span class="bg-success text-center" id="message"></span>
 			</div>
 			<div class="col-sm-12 form-column">
 				<form method="post" id="studentForm">
 					{% csrf_token %}
 					<div class="form-group mb-0">
 						<label for="fname">Your First name</label>
-						<input type="text" id="fname" name="fname" class="form-control" required>
+						<input type="text" id="fname" name="fname" class="form-control">
 					</div>
 					<div class="form-group mb-0">
 						<label for="email-confirm">Your Last name</label>
-						<input type="text" id="lname" name="lname" class="form-control" required>
+						<input type="text" id="lname" name="lname" class="form-control">
 					</div>
 					<div class="form-group mb-0">
 						<label for="country">Email</label>
-						<input type="text" id="email" name="email" class="form-control" placeholder="" required>
+						<input type="text" id="email" name="email" class="form-control" placeholder="">
 					</div>
 					<div class="form-group mb-0">
 						<label for="phone">Phone</label>
 						<input type="number" id="phone" name="phone" class="form-control" placeholder="Optional"
-							required>
+						>
 					</div>
 					<input id="submit" type="submit" class="btn btn-primary mt-2">
 				</form>
-				<span id="message"></span>
 			</div>
 		</div>
 		<div class="col-lg-8 col-md-8 col-sm-8">
@@ -86,15 +87,15 @@
 				type: "POST",
 				data: formData,
 				dataType: "json",
-				success: (title) => {
+				success: (data) => {
 					$("#studentForm")[0].reset();
-					console.log(title);
-					let title1=title
-					$("#message").append(title1);
+					console.log(data.show);
+					$("#message").append(title.title);
 				},
 				error: (title) => {
+					$("#studentForm")[0].reset();
 					console.log(title);
-					$("#message").append(title);
+					$("#message").append(title.title);
 				}
 			});
 

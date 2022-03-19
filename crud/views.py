@@ -2,6 +2,7 @@ from multiprocessing import context
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from crud.models import student3
+from django.core import serializers
 
 
 def index(request):
@@ -23,7 +24,9 @@ def send(request):
         student3(fname=fname, lname=lname, email=email, phone=phone).save()
         title = {'title': 'Send', 'msg': 'Success'}
         # return render(request, 'stuform.html', title)
-        return JsonResponse({"title":"data is submitted"})
+        # show = student3.objects.all().json()
+        # show = serializers.serialize("json", student3.objects.all())
+        return JsonResponse({"title":"success"})
     else:
         return JsonResponse({"title":"Something is wrong"})
 
