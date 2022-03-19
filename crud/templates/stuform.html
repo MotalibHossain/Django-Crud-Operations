@@ -87,9 +87,8 @@
 				type: "POST",
 				data: formData,
 				dataType: "json",
-				success: (data) => {
+				success: (title) => {
 					$("#studentForm")[0].reset();
-					console.log(data.show);
 					$("#message").append(title.title);
 				},
 				error: (title) => {
