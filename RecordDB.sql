@@ -21,18 +21,17 @@ CREATE TABLE `employee` (
   `birthdate` date NOT NULL,
   `birthplace` varchar(255) NOT NULL,
   `status` varchar(15) NOT NULL
-) 
--- ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for table `employee`
 --
--- ALTER TABLE `employee`
---   ADD PRIMARY KEY (`emp_id`);
+ALTER TABLE `employee`
+  ADD PRIMARY KEY (`emp_id`);
 
--- --
--- -- AUTO_INCREMENT for table `employee`
--- --
--- ALTER TABLE `employee`
---   MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT;
--- COMMIT;
+--
+-- AUTO_INCREMENT for table `employee`
+--
+ALTER TABLE `employee`
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
