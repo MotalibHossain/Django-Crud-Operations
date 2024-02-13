@@ -1,13 +1,6 @@
-import pymysql
-
-connection = pymysql.connect(
-    host        = 'localhost',      
-    user        = 'root',
-    password    = '',
-    db          = 'recordDB',
-)
-
-
+from DBConnect import connection
+import pandas as pd
+from tabulate import tabulate
 
 
 """ Inserting Record in Database"""
@@ -23,5 +16,25 @@ def AddEmployee():
 
     connection.commit()
 
+def ShowEmployeeData():
+    sql = "SELECT * FROM `employee`"
+
+    with connection.cursor() as cursore:
+        try:
+            cursore.execute(sql);
+            result=cursore.fetchall();
+            df = pd.DataFrame(result)
+            table = tabulate(df, headers='keys', tablefmt='grid', showindex=False)
+            print(table)
+            # print("Successfully show all data", result)
+        except Exception as e:
+            print("Fail to show data.", e)
+
+
+
+    connection.commit()
+        
+
     
 AddEmployee()
+ShowEmployeeData()
